@@ -1,0 +1,37 @@
+.custom-button {
+  background-color: #004aad;
+  color: white;
+  border-radius: 30px;
+}
+.total-container {
+  display: flex;
+  align-items: center;
+  background-color: #d3d3d337; /* Change to your desired background color */
+  border-radius: 15px; /* Adjust border radius as needed */
+  padding: 10px; /* Adjust padding as needed */
+  width: 91%; /* Adjust width as needed */
+  margin: 0 auto; /* Center the container */
+  margin-bottom: 3%;
+}
+
+.total-label {
+  font-weight: bold;
+  color: black;
+  font-size: 22px;
+  margin-left: 18%;
+}
+
+.total-value {
+  font-weight: bold;
+  color: black;
+  font-size: 22px;
+  margin-left: 70px;
+}
+.quantity-button {
+  --background: white;
+  --color: black;
+  --border-radius: 20px;
+  --border-color: #000;
+  --border-style: solid;
+  --border-width: 1px;
+}

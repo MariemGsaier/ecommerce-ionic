@@ -1,0 +1,138 @@
+<ion-content [fullscreen]="true">
+  <h2
+    class="connect-text"
+    style="
+      padding-top: 20px;
+      margin-top: 20px;
+      text-align: center;
+      color: #004aad;
+      font-weight: bold;
+    "
+  >
+    Votre profil
+  </h2>
+
+  <div style="text-align: center">
+    <img
+      style="border-radius: 100px; max-width: 100%"
+      src="../../assets/images/person1.jpg"
+      alt="Seller Image"
+    />
+
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 20px;
+      "
+    >
+      <ion-icon
+        name="person-outline"
+        style="margin-right: 10px; font-size: 30px; color: #004aad"
+      ></ion-icon>
+      <div>
+        <p style="margin: 0; font-weight: bold; font-size: 15px">
+          Nom d'utilisateur
+        </p>
+        <p style="margin: 0; font-size: 15px; color: gray">Ahmed Ben Ali</p>
+      </div>
+    </div>
+    <hr
+      style="
+        border: none;
+        border-top: 1px solid black;
+        margin: 5px auto;
+        width: 100%;
+      "
+    />
+
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 5px;
+      "
+    >
+      <ion-icon
+        name="mail-outline"
+        style="margin-right: 10px; font-size: 30px; color: #004aad"
+      ></ion-icon>
+      <div>
+        <p style="margin: 0; font-weight: bold; font-size: 15px">
+          Adresse email
+        </p>
+        <p style="margin: 0; font-size: 15px; color: gray">
+          vendeur&#64;gmail.com
+        </p>
+      </div>
+    </div>
+
+    <hr
+      style="
+        border: none;
+        border-top: 1px solid black;
+        margin: 5px auto;
+        width: 100%;
+      "
+    />
+
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 5px;
+      "
+    >
+      <ion-icon
+        name="call-outline"
+        style="margin-right: 10px; font-size: 30px; color: #004aad"
+      ></ion-icon>
+      <div>
+        <p style="margin: 0; font-weight: bold; font-size: 15px">Téléphone</p>
+        <p style="margin: 0; font-size: 15px; color: gray">93340987</p>
+      </div>
+    </div>
+    <hr
+      style="
+        border: none;
+        border-top: 1px solid black;
+        margin: 5px auto;
+        width: 100%;
+      "
+    />
+
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 5px;
+      "
+    >
+      <ion-icon
+        name="lock-closed-outline"
+        style="margin-right: 10px; font-size: 30px; color: #004aad"
+      ></ion-icon>
+      <div>
+        <p style="margin: 0; font-weight: bold; font-size: 15px">
+          Mot de passe
+        </p>
+        <p style="margin: 0; font-size: 15px; color: gray">***********</p>
+        <ion-button routerLink="/modifier-mdp"
+          ><ion-icon name="create-outline"></ion-icon
+        ></ion-button>
+      </div>
+    </div>
+    <hr style="margin: 20px auto; width: 50%" />
+
+    <ion-button
+      style="background-color: #00a0b6; color: white; border-radius: 30px"
+      routerLink="/modifier-profil"
+    >
+      Modifier profil
+    </ion-button>
+  </div>
+</ion-content>

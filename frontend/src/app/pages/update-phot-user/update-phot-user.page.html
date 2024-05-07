@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="--background:#004AAD">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs-vendeur/list-article-vendeur"  style="--color: white;"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: white; font-size: 15px;">Modification de la photo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="container" style=" text-align: center; padding: 20px;">
+    
+    
+   
+
+    <ion-item class="custom-item" style="border: 1px solid #ccc; border-radius: 5px; margin-bottom: 20px; position: relative; border-radius: 15px;">
+      <ion-label position="floating" style="margin-bottom: 35px;">Image</ion-label>
+      <ion-input type="file" name="files[]" id="fileInput" #fileInput (change)="onFileSelected($event)"/>
+    </ion-item>
+
+  
+    
+    <ion-button shape="round" class="login-button" style="margin-top: 20px; 
+     color: white; --background:#00A0B6" (click)="modifier_photo()">Modifier photo</ion-button>
+    
+    
+  </div>
+
+  <script>
+    $(document).ready(function(){
+     // File type validation
+        $("#fileInput").change(function(){
+            var fileLength = this.files.length;
+            var match= ["image/jpeg","image/png","image/jpg","image/gif"];
+            var i;
+            for(i = 0; i < fileLength; i++){ 
+                var file = this.files[i];
+                var imagefile = file.type;
+                if(!((imagefile==match[0]) || (imagefile==match[1]) || (imagefile==match[2]) || (imagefile==match[3]))){
+                    alert('Please select a valid image file (JPEG/JPG/PNG/GIF).');
+                    $("#fileInput").val('');
+                    return false;
+                }
+            }
+        });
+    });
+    </script>
+
+</ion-content>

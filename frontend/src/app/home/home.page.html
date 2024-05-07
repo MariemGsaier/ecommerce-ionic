@@ -1,0 +1,156 @@
+<ion-header [translucent]="true"> </ion-header>
+
+<ion-menu contentId="main-content" *ngIf="authentifie===false">
+  <ion-header>
+    <ion-toolbar style="--background: #004aad; --color: #fff">
+      <ion-title>TechnoShop.</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <ion-button
+      fill="clear"
+      style="color: white; --background: #00a0b6"
+      routerLink="/login"
+    >
+      <ion-icon
+        name="log-in-outline"
+        class="custom-icon"
+        size="large"
+        style="color: white"
+      ></ion-icon>
+      Se connecter
+    </ion-button>
+    <div class="divider"></div>
+    <ion-button
+      fill="clear"
+      style="color: white; --background: #00a0b6"
+      routerLink="/signup"
+    >
+      <ion-icon
+        name="person-add-outline"
+        class="custom-icon2"
+        size="large"
+        style="color: white"
+      ></ion-icon>
+      S'inscrire
+    </ion-button>
+    <div class="divider"></div>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-content [fullscreen]="true">
+    <ion-header>
+      <ion-toolbar style="--background: #004aad; --color: #fff">
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>TechnoShop.</ion-title>
+        <ion-buttons slot="end">
+          <!-- Icône de panier -->
+          <ion-button routerLink="/tabs/panier" *ngIf="authentifie===true">
+            <ion-icon name="cart-outline"></ion-icon>
+            <!-- Badge représentant le nombre d'articles dans le panier -->
+            <ion-badge style="background-color: #00a0b6"
+              >{{ lengthPanier }}</ion-badge
+            >
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-grid>
+      <ion-row>
+        <ion-searchbar
+          placeholder="Rechercher.."
+          class="rounded-input"
+          (keyup)="search($event)"
+          #input
+        ></ion-searchbar>
+      </ion-row>
+
+      <ion-row style="text-align: center">
+        <ion-segment [scrollable]="true" value="tout" class="rounded-segment">
+          <ion-segment-button
+            value="tout"
+            class="segment-button"
+            (click)="getArticlesByCategory(0)"
+            size="small"
+          >
+            Tout
+          </ion-segment-button>
+          <ion-segment-button
+            class="segment-button"
+            size="small"
+            (click)="getArticlesByCategory(1)"
+          >
+            Ordinateurs
+          </ion-segment-button>
+          <ion-segment-button
+            class="segment-button"
+            size="small"
+            (click)="getArticlesByCategory(2)"
+          >
+            Téléphones
+          </ion-segment-button>
+          <ion-segment-button
+            class="segment-button"
+            size="small"
+            (click)="getArticlesByCategory(3)"
+          >
+            Accessoires
+          </ion-segment-button>
+        </ion-segment>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="6" *ngFor="let article of filteredArticles">
+          <ion-card class="custom-card">
+            <div style="text-align: center">
+              <ion-icon
+                *ngFor="let star of [1, 2, 3, 4, 5]"
+                name="star"
+                [style.color]="averageRatings[article.id] >= star ? 'gold' : 'grey'"
+              ></ion-icon>
+            </div>
+
+            <img
+              [src]="'../../assets/images/uploads/'+article.photo"
+              alt="Image du produit"
+              class="card-image"
+            />
+            <ion-card-header>
+              <ion-card-title class="card-title"
+                >{{article.libelle}}</ion-card-title
+              >
+            </ion-card-header>
+            <ion-card-content class="custom-content">
+              {{article.prix}} DT
+              <ion-button
+                fill="solid"
+                size="small"
+                style="
+                  margin-left: -3%;
+                  margin-bottom: 5%;
+                  width: 105%;
+                  font-size: 11px;
+                "
+                class="custom-button"
+                (click)="addToCart(article)"
+                >Ajouter au panier</ion-button
+              >
+              <ion-button
+                [routerLink]="['/tabs/evaluate-article',article.id]"
+                *ngIf="authentifie===true"
+                style="--background: gold"
+              >
+                <ion-icon name="star-half-outline"></ion-icon>
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+</div>

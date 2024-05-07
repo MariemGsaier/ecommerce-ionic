@@ -1,0 +1,146 @@
+<ion-content [fullscreen]="true">
+  <h2
+    class="connect-text"
+    style="
+     
+      text-align: center;
+      color: white;
+      background-color: #004aad;
+      font-weight: bold;
+      padding-bottom: 10px;
+    "
+  >
+    Votre profil
+  </h2>
+
+  <div style="text-align: center">
+    <img
+      style="border-radius: 100px; max-width: 100%"
+      [src]="'../../assets/images/uploads/'+user[6]"
+      alt="Seller Image"
+    />
+    <br><br>
+    <button style= " background-color: rgb(148, 148, 148); border-radius: 5px; width: 30px;" [routerLink]="['/update-phot-user',user[0]]">
+      <ion-icon style="font-size: 20px; color:white" name="camera-outline"></ion-icon>
+      </button>
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 20px;
+      "
+    >
+      <ion-icon
+        name="person-outline"
+        style="margin-right: 10px; font-size: 30px; color: #004aad"
+      ></ion-icon>
+      <div>
+        <p style="margin: 0; font-weight: bold; font-size: 15px">
+          Nom d'utilisateur
+        </p>
+        <p style="margin: 0; font-size: 15px; color: gray">{{user[1]}}</p>
+      </div>
+    </div>
+    <hr
+      style="
+        border: none;
+        border-top: 1px solid black;
+        margin: 5px auto;
+        width: 100%;
+      "
+    />
+
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 5px;
+      "
+    >
+      <ion-icon
+        name="mail-outline"
+        style="margin-right: 10px; font-size: 30px; color: #004aad"
+      ></ion-icon>
+      <div>
+        <p style="margin: 0; font-weight: bold; font-size: 15px">
+          Adresse email
+        </p>
+        <p style="margin: 0; font-size: 15px; color: gray">
+          {{user[2]}}
+        </p>
+      </div>
+    </div>
+
+    <hr
+      style="
+        border: none;
+        border-top: 1px solid black;
+        margin: 5px auto;
+        width: 100%;
+      "
+    />
+
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 5px;
+      "
+    >
+      <ion-icon
+        name="call-outline"
+        style="margin-right: 10px; font-size: 30px; color: #004aad"
+      ></ion-icon>
+      <div>
+        <p style="margin: 0; font-weight: bold; font-size: 15px">Téléphone</p>
+        <p style="margin: 0; font-size: 15px; color: gray">{{user[4]}}</p>
+      </div>
+    </div>
+    <hr
+      style="
+        border: none;
+        border-top: 1px solid black;
+        margin: 5px auto;
+        width: 100%;
+      "
+    />
+
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 5px;
+      "
+    >
+      <ion-icon
+        name="lock-closed-outline"
+        style="margin-right: 10px; font-size: 30px; color: #004aad"
+      ></ion-icon>
+      <div style="display: flex; align-items: center;">
+        <div style="margin-right: 10px;">
+          <p style="margin: 0; font-weight: bold; font-size: 15px;">
+            Mot de passe
+          </p>
+          <p style="margin: 0; font-size: 15px; color: gray;">***********</p>
+        </div>
+        <ion-button (click)="toUpdatePwd(userIdNumber)" style="--background:transparent; border: none;">
+          <ion-icon name="sync-outline" style="color:#004aad; "></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+    <hr style="margin: 20px auto; width: 50%" />
+
+    <ion-button
+      style="background-color: #00a0b6; color: white; border-radius: 30px; --background:#00A0B6"
+      (click)="toUpdateProfil(userIdNumber)">
+      Modifier profil</ion-button>
+
+      <ion-button (click)="confirmlogout()" style="--background:transparent; border: none;">
+        <ion-icon name="log-out-outline" style="color:#004aad; "></ion-icon>
+        </ion-button>
+  </div>
+</ion-content>

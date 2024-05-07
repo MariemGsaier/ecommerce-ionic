@@ -1,0 +1,116 @@
+
+<ion-header>
+
+</ion-header>
+
+<ion-content>
+  <div class="container" style="text-align: center;">
+    <img
+      src="../../../assets/images/logo.png"
+      alt="Logo de l'application"
+      class="logo"
+      style="width: 450px; height: auto; display: block; margin: 0 auto"
+    />
+    <!--  <h1 class="app-name">Nom de votre application</h1> -->
+    <h2
+      class="connect-text"
+      style="
+        margin-top: 20px;
+        text-align: center;
+        color: #004aad;
+        font-weight: bold;
+      "
+    >
+      Inscrivez-vous
+    </h2>
+
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004AAD;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">Nom d'utilisateur</ion-label>
+      <ion-input type="text" id="username"></ion-input>
+    </ion-item>
+
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004AAD;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">Adresse email</ion-label>
+      <ion-input type="email" id="email"></ion-input>
+    </ion-item>
+
+    <ion-item
+      style="
+        border: 2px solid #004AAD;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">Mot de passe</ion-label>
+      <ion-input type="password" id="password"></ion-input>
+      
+    </ion-item>
+
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004AAD;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">Téléphone</ion-label>
+      <ion-input type="number" id="telephone"></ion-input>
+    </ion-item>
+
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004AAD;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">Adresse</ion-label>
+      <ion-input type="text" id="adresse"></ion-input>
+    </ion-item>
+
+    <ion-item class="custom-item" style="border: 2px solid #004AAD; border-radius: 5px; margin-bottom: 20px; position: relative; border-radius: 15px;">
+      <ion-label position="floating" style="margin-bottom: 35px;">Image</ion-label>
+      <ion-input type="file" name="files[]" id="fileInput" #fileInput (change)="onFileSelected($event)"/>
+    </ion-item>
+
+    <ion-button
+      shape="round"
+      class="login-button"
+      style="margin-top: 20px; color: white;  --background: #004AAD;"
+      (click)="register()"
+      >S'inscrire</ion-button
+    >
+
+    <p class="no-account" style="margin-top: 20px; font-weight: bold">
+      Vous avez déja un compte ? <br /><br />
+      <a [routerLink]="['/login']" style="color: #004aad">Connectez vous</a>
+    </p>
+  </div>
+
+</ion-content>

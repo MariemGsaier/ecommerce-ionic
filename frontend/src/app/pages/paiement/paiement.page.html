@@ -1,0 +1,174 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="--background: #004aad; --color: #fff">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Paiement</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div
+    class="container"
+    style="text-align: center; padding: 20px; margin-top: 20px"
+  >
+    <div
+      class="container"
+      style="
+        text-align: left;
+        padding: 20px;
+        margin-top: -11%;
+        margin-left: -2%;
+        font-size: 120%;
+        color: gray;
+      "
+    >
+      Récapitulatif de la commande
+    </div>
+    <ion-item
+      class="custom-item"
+      style="
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">Total</ion-label>
+      <ion-input
+        type="text"
+        [(ngModel)]="commande.montant"
+        readonly
+      ></ion-input>
+    </ion-item>
+    <!-- Case à cocher pour changer l'adresse de livraison -->
+    <ion-item class="custom-item">
+      <ion-label>Changer l'adresse de livraison</ion-label>
+      <ion-checkbox [(ngModel)]="changeDeliveryAddress"></ion-checkbox>
+    </ion-item>
+
+    <!-- Champ pour saisir l'adresse de livraison -->
+    <div *ngIf="changeDeliveryAddress" class="custom-item">
+      <ion-item
+        style="
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          margin-bottom: 20px;
+          position: relative;
+        "
+      >
+        <ion-label position="floating">Adresse de livraison</ion-label>
+        <ion-input
+          type="text"
+          placeholder="Veuillez saisir l'adresse de livraison"
+          [(ngModel)]="commande.adresse_livraison"
+        ></ion-input>
+      </ion-item>
+    </div>
+
+    <div
+      class="container"
+      style="
+        text-align: left;
+        padding: 20px;
+        margin-top: 20px;
+        margin-left: -2%;
+        font-size: 120%;
+        color: gray;
+      "
+    >
+      Méthode de paiement
+    </div>
+    <ion-item
+      class="custom-item"
+      style="margin-bottom: 20px; position: relative"
+    >
+      <ion-radio-group [(ngModel)]="selectedPaymentMethod">
+        <ion-item>
+          <ion-label>Cash</ion-label>
+          <ion-radio value="cash" slot="start" checked></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Carte bancaire</ion-label>
+          <ion-radio value="carteBancaire" slot="start"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-item>
+
+    <div
+      class="container"
+      style="
+        text-align: left;
+        padding: 20px;
+        margin-top: 20px;
+        margin-left: -2%;
+        font-size: 120%;
+        color: gray;
+      "
+      *ngIf="selectedPaymentMethod === 'carteBancaire'"
+    >
+      <div style="margin-top: -7%; margin-bottom: 7%">
+        Informations sur la carte
+      </div>
+
+      <ion-item
+        class="custom-item"
+        style="
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          margin-bottom: 20px;
+          position: relative;
+        "
+      >
+        <ion-label position="floating">N° de carte</ion-label>
+        <ion-input
+          type="text"
+          placeholder="Veuillez saisir le n° de votre carte"
+          [(ngModel)]="commande.num_carte"
+        ></ion-input>
+      </ion-item>
+      <ion-item
+        class="custom-item"
+        style="
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          margin-bottom: 20px;
+          position: relative;
+        "
+      >
+        <ion-label position="floating">Date d'expiration</ion-label>
+        <ion-input
+          type="date"
+          placeholder="Veuillez saisir la date d'expiration de votre carte"
+          [(ngModel)]="commande.date_expiration"
+        ></ion-input>
+      </ion-item>
+      <ion-item
+        class="custom-item"
+        style="
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          margin-bottom: 20px;
+          position: relative;
+          border-radius: 15px;
+        "
+      >
+        <ion-label position="floating">Code secret</ion-label>
+        <ion-input
+          type="password"
+          placeholder="Veuillez saisir le code secret de votre carte"
+          [(ngModel)]="commande.code_secret"
+        ></ion-input>
+      </ion-item>
+    </div>
+
+    <ion-button
+      shape="round"
+      class="pay-button"
+      style="margin-top: 20px; color: white; font-weight: bold"
+      (click)="passerCommande()"
+      >Payer</ion-button
+    >
+  </div>
+</ion-content>

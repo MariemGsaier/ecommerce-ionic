@@ -1,0 +1,87 @@
+.rounded-input {
+  --border-radius: 20px;
+  margin-bottom: 1%;
+}
+
+.menu-button {
+  --background: #004aad;
+}
+.small-button {
+  --padding-start: 8px; /* Adjust the padding to make the button smaller */
+  --padding-end: 9px; /* Adjust the padding to make the button smaller */
+  --icon-size: 14px; /* Adjust the icon size to make it smaller */
+}
+.rounded-segment .segment-button {
+  border-radius: 20px; /* adjust the value to change the roundness */
+}
+
+.segment-button {
+  background-color: #f0f0f0; /* Background color */
+  color: #333; /* Text color */
+  border: none; /* Remove borders */
+  border-radius: 15px; /* Rounded corners */
+  padding: -3px 8px; /* Adjust padding */
+  margin: 0 4px; /* Adjust margin */
+  font-size: 12px; /* Adjust font size */
+}
+
+.segment-button.segment-button-checked {
+  background-color: #004aad; /* Couleur de fond lorsque sélectionné */
+  color: #fff; /* Couleur du texte lorsque sélectionné */
+}
+.small-btn {
+  font-size: x-small; /* Adjust font size if necessary */
+  padding: 0 5px; /* Adjust padding */
+  max-height: 78%; /* Adjust height */
+  min-width: auto; /* Adjust width */
+  width: 87%;
+}
+
+.custom-card {
+  width: 169px;
+  height: 275px;
+}
+
+.card-image {
+  width: 94%;
+  height: 100px;
+  object-fit: contain;
+  margin-top: 7%;
+}
+
+.card-title {
+  font-size: 14px;
+  margin-top: -9%;
+  text-align: center;
+}
+ion-button.custom-button {
+  --background: #00a0b6;
+}
+ion-content .custom-content {
+  margin-top: -6%;
+  text-align: center;
+}
+.divider {
+  height: 1px;
+  background-color: rgba(194, 194, 194, 0.687);
+  margin: 10px 0;
+  width: 112%;
+  margin-left: -6%;
+}
+ion-menu::part(backdrop) {
+  background-color: rgba(61, 61, 61, 0.5);
+}
+
+ion-menu::part(container) {
+  border-radius: 0 20px 20px 0;
+  box-shadow: 4px 0px 16px rgba(61, 61, 61, 0.5);
+}
+.custom-icon {
+  margin-right: 5%;
+}
+.custom-icon2 {
+  margin-right: 7%;
+}
+// ion-icon .custom-icon {
+//   color: #00a0b6;
+// }

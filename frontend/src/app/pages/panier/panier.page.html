@@ -1,0 +1,111 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="--background: #004aad; color: #fff">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Votre panier</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="panierLength === 0">
+    <div style="display: flex; justify-content: center">
+      <ion-icon
+        name="remove-circle-outline"
+        size="large"
+        style="margin-bottom: 10px"
+      ></ion-icon>
+    </div>
+    <p
+      style="
+        display: flex;
+        justify-content: center;
+        font-size: 17px;
+        margin-top: 52%;
+        margin-bottom: 8%;
+      "
+    >
+      Votre panier est vide maintenant.
+    </p>
+  </div>
+
+  <div *ngIf="panierLength !== 0">
+    <ion-card *ngFor="let article of panier">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3">
+              <img
+                [src]="'../../assets/images/uploads/'+article.photo"
+                style="width: 150px"
+                alt="Image de l'article"
+              />
+            </ion-col>
+
+            <ion-col size="6">
+              <p style="font-weight: bold; font-size: 15px; color: black">
+                {{article.libelle}} <br />
+              </p>
+              <p style="margin-top: -7%">
+                <strong>{{article.prix}} DT</strong>
+              </p>
+
+              <div style="display: flex; align-items: center">
+                <ion-button
+                  size="small"
+                  (click)="decreaseQuantity(article)"
+                  class="quantity-button"
+                  >-</ion-button
+                >
+                <ion-input
+                  type="number"
+                  [(ngModel)]="article.quantite"
+                  style="width: 25px"
+                ></ion-input>
+                <ion-button
+                  size="small"
+                  (click)="increaseQuantity(article)"
+                  class="quantity-button"
+                  >+</ion-button
+                >
+              </div>
+            </ion-col>
+
+            <ion-col size="3">
+              <div
+                style="
+                  display: flex;
+                  justify-content: flex-end;
+                  align-items: flex-start;
+                  margin-top: -37%;
+                  margin-right: -43%;
+                "
+              >
+                <ion-button fill="clear" (click)="removeItem(article)">
+                  <ion-icon
+                    name="close-circle-outline"
+                    style="font-size: 30px; color: rgba(205, 75, 75, 0.874)"
+                  ></ion-icon>
+                </ion-button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <div class="text-center">
+      <div class="total-container">
+        <p class="total-label">Total</p>
+        <p class="total-value">{{ calculTotal() }} DT</p>
+      </div>
+
+      <ion-button
+        style="--background: #004aad; color: white; border-radius: 30px"
+        routerLink="/tabs/paiement"
+      >
+        Passer Commande
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="--background:#004AAD">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs-vendeur/list-article-vendeur" style="--color: white;"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: white;">Modification d'un article</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="container" style=" text-align: center; padding: 20px;">
+    
+    
+    <ion-list>
+      <ion-item class="custom-item" style="border: 2px solid #004AAD; 
+      border-radius: 5px; 
+      margin-bottom: 20px;
+      position: relative;
+      border-radius: 15px;">
+        <ion-select interface="popover" placeholder="Catégories" id="categorie" [(ngModel)]="article[2]">
+          <ion-select-option value="1">Ordinateur</ion-select-option>
+          <ion-select-option value="2">Téléphones</ion-select-option>
+          <ion-select-option value="3">Accessoires</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <ion-item class="custom-item" style="border: 2px solid #004AAD; 
+    border-radius: 5px; 
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 15px;">
+      <ion-label position="floating">Article</ion-label>
+      <ion-input type="text" placeholder="Saisir le nom de l'article" id="libelle" [(ngModel)]="article[1]"></ion-input>
+    </ion-item>
+
+    <ion-item class="custom-item" style="border: 2px solid #004AAD; 
+    border-radius: 5px; 
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 15px;">
+      <ion-label position="floating">Prix</ion-label>
+      <ion-input type="number" placeholder="Saisir le prix de l'article" id="prix" [(ngModel)]="article[3]"></ion-input>
+    </ion-item>
+    
+   
+
+    <ion-item class="custom-item" style="border: 2px solid #004AAD; 
+    border-radius: 5px; 
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 15px;">
+      <ion-label position="floating">Description</ion-label>
+      <ion-input type="text" placeholder="Saisir une description de l'article"  id="description" [(ngModel)]="article[5]"></ion-input>
+    </ion-item>
+    
+    <ion-button shape="round" class="login-button" style="margin-top: 20px; 
+     color: white; --background:#00A0B6" (click)="modifierArticle()">Modifier</ion-button>
+    
+    
+  </div>
+
+</ion-content>

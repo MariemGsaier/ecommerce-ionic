@@ -1,0 +1,85 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="--background:#004AAD">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs-admin/list-vendeur" style="--color: white;"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: white;">Ajout d'un vendeur</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="container" style=" text-align: center; padding: 20px; margin-top: 20px;">
+   
+    
+    <ion-item class="custom-item" style="border: 2px solid #004AAD; 
+    border-radius: 5px; 
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 15px;">
+      <ion-label position="floating">Nom d'utilisateur</ion-label>
+      <ion-input type="text" id="username" placeholder="Saisir le nom d'utilisateur du vendeur"></ion-input>
+    </ion-item>
+  
+    <ion-item class="custom-item" style="border: 2px solid #004AAD; 
+    border-radius: 5px; 
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 15px;">
+      <ion-label position="floating">Adresse email</ion-label>
+      <ion-input type="email" id="email" placeholder="Saisir l'adresse email du vendeur"></ion-input>
+    </ion-item>
+
+    <ion-item style="border: 2px solid #004AAD; 
+  border-radius: 5px; 
+  margin-bottom: 20px;
+  position: relative;
+  border-radius: 15px;">
+    <ion-label position="floating">Mot de passe</ion-label>
+    <ion-input type="password" id="password" placeholder="Saisir le mot de passe du vendeur"></ion-input>
+   
+  </ion-item>
+  
+    <ion-item class="custom-item" style="border: 2px solid #004AAD; 
+    border-radius: 5px; 
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 15px;">
+      <ion-label position="floating">Téléphone</ion-label>
+      <ion-input type="number" id="telephone" placeholder="Saisir le téléphone du vendeur"></ion-input>
+    </ion-item>
+
+    <ion-item class="custom-item" style="border: 2px solid #004AAD; 
+    border-radius: 5px; 
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 15px;">
+      <ion-label position="floating">Adresse</ion-label>
+      <ion-input type="text" id="adresse" placeholder="Saisir l'adresse du vendeur"></ion-input>
+    </ion-item>
+
+    
+    <ion-item class="custom-item" style="border: 2px solid #004AAD; border-radius: 5px; margin-bottom: 20px; position: relative; border-radius: 15px;">
+      <ion-label position="floating" style="margin-bottom: 35px;">Image</ion-label>
+      <ion-input type="file" name="files[]" id="fileInput" #fileInput (change)="onFileSelected($event)"/>
+    </ion-item>
+    
+    
+
+    
+    <ion-button shape="round" class="login-button" style="margin-top: 20px; 
+     color: white; --background:#00A0B6 " (click)="ajouter_vendeur()">Ajouter</ion-button>
+    
+    
+  </div>
+
+</ion-content>
+
+
+
+
+  
+  
+  
+  
+  

@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="--background:#004AAD">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs-admin/list-vendeur" style="--color: white;"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: white; font-size: 15px;">Modification d'un vendeur</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="container" style=" text-align: center; padding: 20px; margin-top: 20px;">
+   
+    
+    <ion-item class="custom-item" style="border: 2px solid #004AAD; 
+    border-radius: 5px; 
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 15px;">
+      <ion-label position="floating">Nom d'utilisateur</ion-label>
+      <ion-input type="text" id="username" [(ngModel)]="seller[1]" placeholder="Saisir le nom d'utilisateur du vendeur"></ion-input>
+    </ion-item>
+  
+    <ion-item class="custom-item" style="border: 2px solid #004AAD; 
+    border-radius: 5px; 
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 15px;">
+      <ion-label position="floating">Adresse email</ion-label>
+      <ion-input type="email" id="email" [(ngModel)]="seller[2]" placeholder="Saisir l'adresse email du vendeur"></ion-input>
+    </ion-item>
+
+    <ion-item style="border: 2px solid #004AAD; 
+    border-radius: 5px; 
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 15px;">
+      <ion-label position="floating">Mot de passe</ion-label>
+      <ion-input type="password" id="password" [(ngModel)]="seller[3]" placeholder="Saisir le mot de passe du vendeur"></ion-input>
+      <!-- <ion-button slot="end" (click)="togglePassword()"  style="padding-top: 5px;">
+        <ion-icon slot="icon-only" name="eye" style="padding-top: 3px;"></ion-icon>
+      </ion-button> -->
+    </ion-item>
+  
+    <ion-item class="custom-item" style="border: 2px solid #004AAD; 
+    border-radius: 5px; 
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 15px;">
+      <ion-label position="floating">Téléphone</ion-label>
+      <ion-input type="number" id="telephone" [(ngModel)]="seller[4]" placeholder="Saisir le téléphone du vendeur"></ion-input>
+    </ion-item>
+
+    
+    <ion-item class="custom-item" style="border: 2px solid #004AAD; 
+    border-radius: 5px; 
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 15px;">
+      <ion-label position="floating">Adresse</ion-label>
+      <ion-input type="text" id="adresse" [(ngModel)]="seller[5]" placeholder="Saisir l'adresse du vendeur"></ion-input>
+    </ion-item>
+    
+  
+   
+    
+    <ion-button shape="round" class="login-button" style="margin-top: 20px; 
+     color: white; --background:#00A0B6 " (click)="updateSeller()">Modifier</ion-button>
+    
+    
+  </div>
+
+</ion-content>
+
+
+
+
+  
+  
+  
+  
+  

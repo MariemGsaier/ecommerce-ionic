@@ -1,0 +1,131 @@
+<ion-header [translucent]="true" >
+  <ion-toolbar  style="--background:#004AAD">
+    <ion-buttons slot="start" >
+      <ion-back-button defaultHref="/tabs/home" style="--color: white;"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: white;">Évaluation d'un article</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div style="text-align: center">
+  <img
+    style="margin-top:20%;border-radius: 10px; max-width: 40%"
+    [src]="'../../assets/images/uploads/'+article[4]"
+    alt="Seller Image"
+  />
+  <br><br>
+  <div
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 20px;
+    "
+  >
+    <ion-icon
+      name="person-outline"
+      style="margin-right: 10px; font-size: 30px; color: #004aad"
+    ></ion-icon>
+    <div>
+      <p style="margin: 0; font-weight: bold; font-size: 15px">
+        Nom du produit : 
+      </p>
+      <p style="margin: 0; font-size: 15px; color: gray">{{article[1]}}</p>
+    </div>
+  </div>
+  <hr
+    style="
+      border: none;
+      border-top: 1px solid black;
+      margin: 5px auto;
+      width: 100%;
+    "
+  />
+
+  <div
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 5px;
+    "
+  >
+    <ion-icon
+      name="mail-outline"
+      style="margin-right: 10px; font-size: 30px; color: #004aad"
+    ></ion-icon>
+    <div>
+      <p style="margin: 0; font-weight: bold; font-size: 15px">
+        Description
+      </p>
+      <p style="margin: 0; font-size: 15px; color: gray">
+        {{article[5]}}
+      </p>
+    </div>
+  </div>
+
+  <hr
+    style="
+      border: none;
+      border-top: 1px solid black;
+      margin: 5px auto;
+      width: 100%;
+    "
+  />
+
+  <div
+  style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5px;
+  "
+>
+  <ion-icon
+    name="mail-outline"
+    style="margin-right: 10px; font-size: 30px; color: #004aad"
+  ></ion-icon>
+  <div>
+    <p style="margin: 0; font-weight: bold; font-size: 15px">
+      Prix : 
+    </p>
+    <p style="margin: 0; font-size: 15px; color: gray">
+      {{article[3]}} DT
+    </p>
+  </div>
+</div>
+
+  <hr
+    style="
+      border: none;
+      border-top: 1px solid black;
+      margin: 5px auto;
+      width: 100%;
+    "
+  />
+
+
+  <!-- Évaluation -->
+<div style="text-align: center; padding-top: 20px;">
+  <p style="margin: 0; font-weight: bold; font-size: 15px">Évaluez ce produit :</p>
+  <div style="font-size: 30px; color: #FFD700;">
+    <ion-icon (click)="rateArticle(1)" [name]="star1"></ion-icon>
+    <ion-icon (click)="rateArticle(2)" [name]="star2"></ion-icon>
+    <ion-icon (click)="rateArticle(3)" [name]="star3"></ion-icon>
+    <ion-icon (click)="rateArticle(4)" [name]="star4"></ion-icon>
+    <ion-icon (click)="rateArticle(5)" [name]="star5"></ion-icon>
+  </div>
+</div>
+
+
+
+
+  <ion-button
+    style="background-color: #00a0b6; color: white; border-radius: 30px; --background:#00A0B6; margin-top: 20px;"
+    (click)="evaluateArticle()">
+    Évaluer</ion-button>
+   
+</div>
+</ion-content>
+

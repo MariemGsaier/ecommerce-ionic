@@ -1,0 +1,151 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="--background: #004aad">
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/tabs-vendeur/list-article-vendeur"
+        style="--color: white"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: white">Ajout d'un article</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container" style="text-align: center; padding: 20px">
+    <ion-list>
+      <ion-item
+        class="custom-item"
+        style="
+          border: 2px solid #004aad;
+          border-radius: 5px;
+          margin-bottom: 20px;
+          position: relative;
+          border-radius: 15px;
+        "
+      >
+        <ion-select interface="popover" placeholder="Catégories" id="categorie">
+          <ion-select-option value="1">Ordinateur</ion-select-option>
+          <ion-select-option value="2">Téléphones</ion-select-option>
+          <ion-select-option value="3">Accessoires</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004aad;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">Article</ion-label>
+      <ion-input
+        type="text"
+        placeholder="Saisir le nom de l'article"
+        id="libelle"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004aad;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">Prix</ion-label>
+      <ion-input
+        type="number"
+        placeholder="Saisir le prix de l'article"
+        id="prix"
+      ></ion-input>
+    </ion-item>
+
+    <!-- <ion-item class="custom-item" style="border: 2px solid #004AAD; border-radius: 5px; margin-bottom: 20px; position: relative; border-radius: 15px;">
+      <ion-label position="floating" style="margin-bottom: 35px;">Image</ion-label>
+      <ion-input type="file" name="files[]" id="fileInput" #fileInput (change)="onFileSelected($event)"/>
+    </ion-item> -->
+
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004aad;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+        display: flex;
+        align-items: flex-end; /* Aligner les éléments verticalement */
+      "
+    >
+      <ion-label position="floating" style="margin-bottom: 35px; flex: 1"
+        >Image</ion-label
+      >
+      <!-- <ion-input
+        type="file"
+        name="files[]"
+        id="fileInput"
+        #fileInput
+        (change)="onFileSelected($event)"
+      /> -->
+      <ion-button
+        shape="round"
+        style="--background: #00a0b6; margin-top: -13%"
+        (click)="takePicture()"
+        ><ion-icon name="camera-outline"></ion-icon
+      ></ion-button>
+    </ion-item>
+
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004aad;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">Description</ion-label>
+      <ion-input
+        type="text"
+        placeholder="Saisir une description de l'article"
+        id="description"
+      ></ion-input>
+    </ion-item>
+
+    <ion-button
+      shape="round"
+      class="login-button"
+      style="margin-top: 20px; color: white; --background: #00a0b6"
+      (click)="ajouter_article()"
+      >Ajouter</ion-button
+    >
+  </div>
+  <!-- 
+  <script>
+    $(document).ready(function(){
+     // File type validation
+        $("#fileInput").change(function(){
+            var fileLength = this.files.length;
+            var match= ["image/jpeg","image/png","image/jpg","image/gif"];
+            var i;
+            for(i = 0; i < fileLength; i++){ 
+                var file = this.files[i];
+                var imagefile = file.type;
+                if(!((imagefile==match[0]) || (imagefile==match[1]) || (imagefile==match[2]) || (imagefile==match[3]))){
+                    alert('Please select a valid image file (JPEG/JPG/PNG/GIF).');
+                    $("#fileInput").val('');
+                    return false;
+                }
+            }
+        });
+    });
+    </script> -->
+</ion-content>

@@ -1,0 +1,102 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="--background: #004aad">
+    <ion-buttons slot="start" (click)="back">
+      <ion-back-button
+        defaultHref=""
+        style="--color: white"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: white">Modification du profil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div
+    class="container"
+    style="text-align: center; padding: 20px; margin-top: 20px"
+  >
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004aad;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">Nom d'utilisateur</ion-label>
+      <ion-input
+        type="text"
+        id="username"
+        placeholder="Veuillez saisir le nom d'utilisateur du vendeur"
+        id="username"
+        [(ngModel)]="new_username"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004aad;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">E-mail</ion-label>
+      <ion-input
+        type="email"
+        id="email"
+        placeholder="Veuillez saisir l'email de l'utilisateur"
+        id="email"
+        [(ngModel)]="new_email"
+      ></ion-input>
+    </ion-item>
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004aad;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">Adresse</ion-label>
+      <ion-input
+        type="text"
+        placeholder="Veuillez saisir l'adresse de l'utilisateur"
+        id="adresse"
+        [(ngModel)]="new_adresse"
+      ></ion-input>
+    </ion-item>
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004aad;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">Téléphone</ion-label>
+      <ion-input
+        type="number"
+        id="telephone"
+        placeholder="Veuillez saisir le téléphone de l'utilisateur"
+        id="adresse"
+        [(ngModel)]="new_phone"
+      ></ion-input>
+    </ion-item>
+    <ion-button
+      shape="round"
+      class="login-button"
+      style="margin-top: 20px; color: white; --background: #00a0b6"
+      (click)="updateProfile()"
+      >Modifier</ion-button
+    >
+  </div>
+</ion-content>

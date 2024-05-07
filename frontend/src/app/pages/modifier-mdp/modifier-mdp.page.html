@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+  <ion-toolbar style="--background: #004aad">
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref=""
+        style="--color: white"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: white; font-size: 13px"
+      >Modification du mot de passe</ion-title
+    >
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div
+    class="container"
+    style="text-align: center; padding: 20px; margin-top: 20px"
+  >
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004aad;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">Ancien mot de passe</ion-label>
+      <ion-input
+        type="password"
+        id="username"
+        placeholder="Veuillez saisir l'ancien mot de passe"
+        [(ngModel)]="user.old_password"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004aad;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">Nouveau mot de passe</ion-label>
+      <ion-input
+        type="password"
+        placeholder="Veuillez saisir le nouveau mot de passe"
+        [(ngModel)]="user.new_password"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004aad;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
+      <ion-label position="floating">Confirmation du mot de passe</ion-label>
+      <ion-input
+        type="password"
+        placeholder="Veuillez saisir de nouveau le mot de passe"
+        [(ngModel)]="user.confirm_password"
+      ></ion-input>
+    </ion-item>
+
+    <ion-button
+      shape="round"
+      class="login-button"
+      style="margin-top: 20px; color: white; --background: #00a0b6"
+      (click)="updatePassword()"
+      >Modifier</ion-button
+    >
+  </div>
+</ion-content>
