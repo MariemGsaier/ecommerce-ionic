@@ -1,39 +1,63 @@
-
-<ion-header>
- 
-</ion-header>
+<ion-header> </ion-header>
 
 <ion-content>
+  <div class="container" style="text-align: center">
+    <img
+      src="../../../assets/images/logo.png"
+      alt="Logo de l'application"
+      class="logo"
+      style="width: 450px; height: auto; display: block; margin: 0 auto"
+    />
+    <h2
+      class="connect-text"
+      style="
+        margin-top: 20px;
+        text-align: center;
+        color: #004aad;
+        font-weight: bold;
+      "
+    >
+      Connectez-vous
+    </h2>
 
-  <div class="container" style=" text-align: center; ">
-    <img src="../../../assets/images/logo.png" alt="Logo de l'application" class="logo" style="width: 450px;  height: auto; display: block; margin: 0 auto;">
-  <!--  <h1 class="app-name">Nom de votre application</h1> -->
-    <h2 class="connect-text" style="margin-top: 20px; text-align: center; color: #004AAD; font-weight: bold;">Connectez-vous</h2>
-    
-    <ion-item class="custom-item" style="border: 2px solid #004AAD; 
-    border-radius: 5px; 
-    margin-bottom: 20px;
-    position: relative;
-    border-radius: 15px;">
+    <ion-item
+      class="custom-item"
+      style="
+        border: 2px solid #004aad;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
       <ion-label position="floating">Adresse email</ion-label>
       <ion-input type="email" id="email"></ion-input>
     </ion-item>
-    
-    <ion-item style="border: 2px solid #004AAD; 
-    border-radius: 5px; 
-    margin-bottom: 20px;
-    position: relative;
-    border-radius: 15px;">
+
+    <ion-item
+      style="
+        border: 2px solid #004aad;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        position: relative;
+        border-radius: 15px;
+      "
+    >
       <ion-label position="floating">Mot de passe</ion-label>
       <ion-input type="password" id="password"></ion-input>
-     
     </ion-item>
-    
-    <ion-button shape="round" class="login-button" style="margin-top: 20px; 
-     color: white;  --background: #004AAD;" (click)="login()">Connexion</ion-button>
-    
-    <p class="no-account" style="margin-top: 20px; font-weight: bold;">Vous n'avez pas de compte ? <br><br>
-      <a [routerLink]="['/signup']" style="color:#004AAD">Inscrivez-vous</a></p>
-  </div>
 
+    <ion-button
+      shape="round"
+      class="login-button"
+      style="margin-top: 20px; color: white; --background: #004aad"
+      (click)="login()"
+      >Connexion</ion-button
+    >
+
+    <p class="no-account" style="margin-top: 20px; font-weight: bold">
+      Vous n'avez pas de compte ? <br /><br />
+      <a [routerLink]="['/signup']" style="color: #004aad">Inscrivez-vous</a>
+    </p>
+  </div>
 </ion-content>

@@ -24,13 +24,6 @@ export class ModifierMdpPage implements OnInit {
     confirm_password: '',
   };
   password?: string;
-  // submitted = false;
-
-  // mdpForm: FormGroup = new FormGroup({
-  //   old_password: new FormControl(''),
-  //   new_password: new FormControl(''),
-  //   confirm_password: new FormControl(''),
-  // });
 
   constructor(
     private route: ActivatedRoute,
@@ -41,22 +34,8 @@ export class ModifierMdpPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.mdpForm = this.formBuilder.group(
-    //   {
-    //     username: ['',[Validators.required, Validators.pattern(/^[a-zA-Z][a-zA-Z0-9 ]+$/)]],
-    //     email: ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
-    //     role: ['', Validators.required],
-    //     password: ['',[Validators.required, Validators.minLength(6), Validators.pattern(/^[a-zA-Z0-9!@#$%^&*()]+$/)]],
-    //     confirmPassword: ['', Validators.required]
-    //   },
-    //   {
-    //     validators: [Validation.match('password', 'confirmPassword')]
-    //   }
-    // );
-    // Récupérer l'ID du vendeur à partir des paramètres de l'URL
     this.userId = this.route.snapshot.params['id'];
     console.log(this.userId);
-    // Appeler la méthode du service pour récupérer les données du vendeur
     this.utilisateurService.getUser(this.userId).subscribe(
       (response) => {
         this.password = response[3]; // Assigner la valeur du nom d'utilisateur
@@ -72,25 +51,12 @@ export class ModifierMdpPage implements OnInit {
     );
   }
 
-  // get f(): { [key: string]: AbstractControl } {
-  //   return this.mdpForm.controls;
-  // }
-  // onSubmit(): void {
-  //   this.submitted = true;
-
-  //   if (this.mdpForm.invalid) {
-  //     return;
-  //   }
-  // }
-
   updatePassword() {
-    // Vérifier si tous les champs sont remplis
     if (
       !this.user.old_password ||
       !this.user.new_password ||
       !this.user.confirm_password
     ) {
-      // Afficher un message d'erreur à l'utilisateur
       this.snackBar.open(
         'Veuillez remplir tous les champs du formulaire.',
         'Fermer',
@@ -128,47 +94,42 @@ export class ModifierMdpPage implements OnInit {
 
     this.utilisateurService.updatePwd(this.userId, userData).subscribe(
       (response) => {
-        // Gérer la réponse de l'API (succès)
         console.log(response);
 
         this.snackBar.open('Mot de passe a jour avec succés', 'Fermer', {
-          duration: 3000, // Durée du snackbar en millisecondes
+          duration: 3000,
           panelClass: ['success-snackbar'],
         });
-        // Rediriger l'utilisateur vers une autre page (par exemple, la page de connexion)
-        this.utilisateurService.getProfileById(this.userId).subscribe(
-          (profileResponse) => {
-            console.log(profileResponse)
-            // Récupérer le rôle de l'utilisateur depuis la réponse de getProfile
+        this.utilisateurService
+          .getProfileById(this.userId)
+          .subscribe((profileResponse) => {
+            console.log(profileResponse);
             const role = profileResponse[7];
-            console.log(role)
-          // Rediriger l'utilisateur en fonction de son rôle
-        switch (role) {
-          case 'client':
-            this.router.navigate(['/tabs/profile-client',]);
-            break;
-          case 'vendeur':
-            this.router.navigate(['/tabs-vendeur/profile-client']);
-            break;
-          case 'admin':
-            this.router.navigate(['/tabs-admin/profile-client']);
-            break;
-        }
-        setTimeout(() => {
-          window.location.reload();
-        }, 200);
-        },
-      );
+            console.log(role);
+            // Rediriger l'utilisateur en fonction de son rôle
+            switch (role) {
+              case 'client':
+                this.router.navigate(['/tabs/profile-client']);
+                break;
+              case 'vendeur':
+                this.router.navigate(['/tabs-vendeur/profile-client']);
+                break;
+              case 'admin':
+                this.router.navigate(['/tabs-admin/profile-client']);
+                break;
+            }
+            setTimeout(() => {
+              window.location.reload();
+            }, 200);
+          });
       },
       (error) => {
-        // Gérer l'erreur (échec de l'inscription)
         console.error(error);
-        // Afficher un message d'erreur à l'utilisateur
         this.snackBar.open(
           'Erreur lors de la mise à jour du mot de passe. Veuillez réessayer.',
           'Fermer',
           {
-            duration: 3000, // Durée du snackbar en millisecondes
+            duration: 3000,
             panelClass: ['error-snackbar'],
           }
         );

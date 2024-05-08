@@ -19,7 +19,6 @@ export class PanierPage implements OnInit {
     this.panier = this.panierService.panier;
     this.panierLength = this.panierService.lengthPanier;
     console.log(this.panierLength);
-    // console.log(this.panier);
   }
 
   decreaseQuantity(article: any) {

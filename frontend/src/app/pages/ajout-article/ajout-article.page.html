@@ -67,11 +67,6 @@
       ></ion-input>
     </ion-item>
 
-    <!-- <ion-item class="custom-item" style="border: 2px solid #004AAD; border-radius: 5px; margin-bottom: 20px; position: relative; border-radius: 15px;">
-      <ion-label position="floating" style="margin-bottom: 35px;">Image</ion-label>
-      <ion-input type="file" name="files[]" id="fileInput" #fileInput (change)="onFileSelected($event)"/>
-    </ion-item> -->
-
     <ion-item
       class="custom-item"
       style="
@@ -87,13 +82,7 @@
       <ion-label position="floating" style="margin-bottom: 35px; flex: 1"
         >Image</ion-label
       >
-      <!-- <ion-input
-        type="file"
-        name="files[]"
-        id="fileInput"
-        #fileInput
-        (change)="onFileSelected($event)"
-      /> -->
+
       <ion-button
         shape="round"
         style="--background: #00a0b6; margin-top: -13%"
@@ -128,24 +117,4 @@
       >Ajouter</ion-button
     >
   </div>
-  <!-- 
-  <script>
-    $(document).ready(function(){
-     // File type validation
-        $("#fileInput").change(function(){
-            var fileLength = this.files.length;
-            var match= ["image/jpeg","image/png","image/jpg","image/gif"];
-            var i;
-            for(i = 0; i < fileLength; i++){ 
-                var file = this.files[i];
-                var imagefile = file.type;
-                if(!((imagefile==match[0]) || (imagefile==match[1]) || (imagefile==match[2]) || (imagefile==match[3]))){
-                    alert('Please select a valid image file (JPEG/JPG/PNG/GIF).');
-                    $("#fileInput").val('');
-                    return false;
-                }
-            }
-        });
-    });
-    </script> -->
 </ion-content>

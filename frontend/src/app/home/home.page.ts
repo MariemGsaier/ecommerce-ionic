@@ -17,7 +17,6 @@ export class HomePage implements OnInit {
 
   averageRatings: any = {};
 
-
   constructor(
     private articleService: ArticleService,
     private alertController: AlertController,
@@ -44,7 +43,7 @@ export class HomePage implements OnInit {
         this.articles = response.articles;
         this.filteredArticles = this.articles.slice();
         console.log(this.articles);
-        this.articles.forEach(article => {
+        this.articles.forEach((article) => {
           this.getAverageRating(article.id);
         });
       },
@@ -58,17 +57,17 @@ export class HomePage implements OnInit {
       .toLowerCase()
       .trim();
 
-    // Filtrer les articles par rapport à la liste complète des articles
+    // Filtrer les articles
     this.filteredArticles = this.articles.filter((article) =>
       article.libelle.toLowerCase().includes(filterValue)
     );
   }
   getArticlesByCategory(categoryId: number) {
     if (categoryId === 0) {
-      // Si categoryId est 0
+      // Si id categorie =0 (dans le cas afficher tout)
       this.filteredArticles = this.articles.slice();
     } else {
-      // Sinon, récupérez les articles par catégorie spécifiée
+      // Sinon récupération des articles par id categorie
       this.articleService.getArticlesByCategory(categoryId).subscribe(
         (response) => {
           console.log('respCat', response);
@@ -122,7 +121,10 @@ export class HomePage implements OnInit {
         this.averageRatings[articleId] = response.average_rating;
       },
       (error) => {
-        console.error('Erreur lors de la récupération de la moyenne des évaluations :', error);
+        console.error(
+          'Erreur lors de la récupération de la moyenne des évaluations :',
+          error
+        );
       }
     );
   }

@@ -18,10 +18,6 @@ export class UtilisateurService {
     return this.http.post<any>(`${this.baseUrl}/signup`, user);
   }
 
-  // getProfile(email: string, password: string): Observable<any> {
-  //   return this.http.post<any>(`${this.baseUrl}/profile`, { email, password });
-  // }
-
   getProfileById(userId: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/profile/${userId}`);
   }

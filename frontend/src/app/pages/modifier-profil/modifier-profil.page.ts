@@ -11,7 +11,7 @@ import { UtilisateurService } from 'src/app/services/utilisateur.service';
 export class ModifierProfilPage implements OnInit {
   userId!: number;
   user: any = {};
-  new_username?: string; // Initialize as empty string
+  new_username?: string;
   new_email?: string;
   new_phone?: string;
   new_adresse?: string;
@@ -24,17 +24,15 @@ export class ModifierProfilPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Récupérer l'ID du vendeur à partir des paramètres de l'URL
     this.userId = this.route.snapshot.params['id'];
     console.log(this.userId);
-    // Appeler la méthode du service pour récupérer les données du vendeur
     this.utilisateurService.getUser(this.userId).subscribe(
       (response) => {
         this.user = response;
-        this.new_username = this.user[1]; // Assigner la valeur du nom d'utilisateur
-        this.new_email = this.user[2]; // Assigner la valeur de l'new_email
-        this.new_phone = this.user[4]; // Assigner la valeur du téléphone
-        this.new_adresse = this.user[5]; // Assigner la valeur de l'new_adresse
+        this.new_username = this.user[1];
+        this.new_email = this.user[2];
+        this.new_phone = this.user[4];
+        this.new_adresse = this.user[5];
         console.log('user', this.user);
       },
       (error) => {
@@ -47,14 +45,12 @@ export class ModifierProfilPage implements OnInit {
   }
 
   updateProfile() {
-    // Vérifier si tous les champs sont remplis
     if (
       !this.new_username ||
       !this.new_email ||
       !this.new_phone ||
       !this.new_adresse
     ) {
-      // Afficher un message d'erreur à l'utilisateur
       this.snackBar.open(
         'Veuillez remplir tous les champs du formulaire.',
         'Fermer',
@@ -63,7 +59,7 @@ export class ModifierProfilPage implements OnInit {
           panelClass: ['error-snackbar'],
         }
       );
-      return; // Arrêter l'exécution de la méthode
+      return;
     }
     const userData = {
       new_username: this.new_username,
@@ -75,24 +71,61 @@ export class ModifierProfilPage implements OnInit {
 
     this.utilisateurService.updateProfile(this.userId, userData).subscribe(
       (response) => {
-        // Gérer la réponse de l'API (succès)
         console.log(response);
 
         this.snackBar.open('Profil mis a jour avec succés', 'Fermer', {
-          duration: 3000, // Durée du snackbar en millisecondes
+          duration: 3000,
           panelClass: ['success-snackbar'],
         });
-        // Rediriger l'utilisateur vers une autre page (par exemple, la page de connexion)
-        this.utilisateurService.getProfileById(this.userId).subscribe(
-          (profileResponse) => {
-            console.log(profileResponse)
-            // Récupérer le rôle de l'utilisateur depuis la réponse de getProfile
+        this.utilisateurService
+          .getProfileById(this.userId)
+          .subscribe((profileResponse) => {
+            console.log(profileResponse);
             const role = profileResponse[7];
-            console.log(role)
-          // Rediriger l'utilisateur en fonction de son rôle
+            console.log(role);
+            // Rediriger l'utilisateur en fonction de son rôle
+            switch (role) {
+              case 'client':
+                this.router.navigate(['/tabs/profile-client']);
+                break;
+              case 'vendeur':
+                this.router.navigate(['/tabs-vendeur/profile-client']);
+                break;
+              case 'admin':
+                this.router.navigate(['/tabs-admin/profile-client']);
+                break;
+            }
+            setTimeout(() => {
+              window.location.reload();
+            }, 200);
+          });
+      },
+
+      (error) => {
+        console.error(error);
+        this.snackBar.open(
+          'Erreur lors de la mise à jour du profil. Veuillez réessayer.',
+          'Fermer',
+          {
+            duration: 3000,
+            panelClass: ['error-snackbar'],
+          }
+        );
+      }
+    );
+  }
+
+  back() {
+    this.utilisateurService
+      .getProfileById(this.userId)
+      .subscribe((profileResponse) => {
+        console.log(profileResponse);
+        const role = profileResponse[7];
+        console.log(role);
+        // Rediriger l'utilisateur en fonction de son rôle
         switch (role) {
           case 'client':
-            this.router.navigate(['/tabs/profile-client',]);
+            this.router.navigate(['/tabs/profile-client']);
             break;
           case 'vendeur':
             this.router.navigate(['/tabs-vendeur/profile-client']);
@@ -101,53 +134,6 @@ export class ModifierProfilPage implements OnInit {
             this.router.navigate(['/tabs-admin/profile-client']);
             break;
         }
-        setTimeout(() => {
-          window.location.reload();
-        }, 200);
-        },
-      );
-      },
-
-      
-      (error) => {
-        // Gérer l'erreur (échec de l'inscription)
-        console.error(error);
-        // Afficher un message d'erreur à l'utilisateur
-        this.snackBar.open(
-          'Erreur lors de la mise à jour du profil. Veuillez réessayer.',
-          'Fermer',
-          {
-            duration: 3000, // Durée du snackbar en millisecondes
-            panelClass: ['error-snackbar'],
-          }
-        );
-      }
-    );
-  }
-
-
-  back()
-  {
-      // Appeler la méthode getProfile pour obtenir les informations complètes de l'utilisateur
-      this.utilisateurService.getProfileById(this.userId).subscribe(
-        (profileResponse) => {
-          console.log(profileResponse)
-          // Récupérer le rôle de l'utilisateur depuis la réponse de getProfile
-          const role = profileResponse[7];
-          console.log(role)
-        // Rediriger l'utilisateur en fonction de son rôle
-      switch (role) {
-        case 'client':
-          this.router.navigate(['/tabs/profile-client']);
-          break;
-        case 'vendeur':
-          this.router.navigate(['/tabs-vendeur/profile-client']);
-          break;
-        case 'admin':
-          this.router.navigate(['/tabs-admin/profile-client']);
-          break;
-      }
-      },
-    );
+      });
   }
 }

@@ -42,13 +42,11 @@
         readonly
       ></ion-input>
     </ion-item>
-    <!-- Case à cocher pour changer l'adresse de livraison -->
     <ion-item class="custom-item">
       <ion-label>Changer l'adresse de livraison</ion-label>
       <ion-checkbox [(ngModel)]="changeDeliveryAddress"></ion-checkbox>
     </ion-item>
 
-    <!-- Champ pour saisir l'adresse de livraison -->
     <div *ngIf="changeDeliveryAddress" class="custom-item">
       <ion-item
         style="

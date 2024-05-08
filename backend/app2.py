@@ -42,7 +42,7 @@ password = ''
 database = 'technoshop'
 
 try:
-    # Establish MySQL Connection
+    #Connexion MYSQL
     mysql = MySQLdb.connect(host=host, user=user, password=password, database=database)
     print("Database connection successful")
     print(mysql)
@@ -70,15 +70,12 @@ def test_db_connection():
         return jsonify({'message': 'An error occurred while testing database connection', 'error': str(e)}), 500
 
 #login (client + vendeur)
-
-
 @app.route('/api/login', methods=['POST'])
 def login():
     # Récupérer les données de la requête
     email = request.json.get('email')
     password = request.json.get('password')
-
-    # Vérifier si l'utilisateur existe dans la base de données
+    # Vérifier l'existence de l'utilisateur dans la BD
     cursor = mysql.cursor()
     cursor.execute("SELECT * FROM utilisateur WHERE email = %s", (email,))
     user = cursor.fetchone()
@@ -87,31 +84,29 @@ def login():
         # Vérifier le mot de passe
         print(user)
         print('mdp'+user[3])
-        hashed_password = user[3]  # L'index peut varier en fonction de votre schéma de base de données
+        hashed_password = user[3]  
         if bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8')):
-            # Mot de passe correct, générer un jeton d'authentification
+            #si mdp correcte génération du token
             user_id = user[0]
             payload = {'email': email, 'user_id': user_id}
             token = jwt.encode(payload, 'secret', algorithm='HS256')
-            # Créer une réponse JSON avec le jeton
             response = make_response(jsonify({'token': token, 'user_id': user_id}))
             return response
         else:
-            # Mot de passe incorrect
+            #mdp incorrecte
             return jsonify({'message': 'Email ou mot de passe incorrect'}), 401
     else:
-        # Utilisateur non trouvé
+        #utilisateur inexistant dans BD
         return jsonify({'message': 'Email ou mot de passe incorrect'}), 401
 
 
 
 
 #signup (client)
-
 @app.route('/api/signup', methods=['POST'])
 def signup():
     
-    # Récupérer les données du formulaire
+    # Récupération des données du formulaire
     username = request.form.get('username')
     email = request.form.get('email')
     raw_password = request.form.get('password')
@@ -120,13 +115,9 @@ def signup():
     files = request.files.getlist('files[]')
 
     password = bcrypt.hashpw(raw_password.encode('utf-8'), bcrypt.gensalt())
-
-    
-
-    # Insérer les données dans la base de données
+    # Insértion des données dans BD
     cursor = mysql.cursor()
     insert_query = "INSERT INTO utilisateur (nom_utilisateur, email, mot_de_passe, telephone, adresse, photo, role) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-
     for file in files:
         filename = secure_filename(file.filename)
         if file and allowed_file(filename):
@@ -138,31 +129,10 @@ def signup():
     cursor.close()
     return jsonify({'message': 'Inscription réussie'})
 
-
-#profile (client + vendeur)
-
-# @app.route('/api/profile', methods=['POST'])
-# def get_profile():
-#     # Récupérer les données de la requête
-#     email = request.json.get('email')
-#     password = request.json.get('password')
-
-#     # Vérifier si l'utilisateur existe dans la base de données
-    
-#     cursor = mysql.cursor()
-#     cursor.execute("SELECT * FROM utilisateur WHERE email = %s AND mot_de_passe = %s", (email, password))
-#     user = cursor.fetchone()
-
-#     if user:
-       
-#         return jsonify(user)
-#     else:
-#         return jsonify({'message': 'Utilisateur non trouvé'}), 404
-
-
+#informations profil utilisateur
 @app.route('/api/profile/<int:user_id>', methods=['GET'])
 def get_profile(user_id):
-    # Vérifier si l'utilisateur existe dans la base de données
+    # Vérifier l'existence de l'utilisateur dans la BD
     cursor = mysql.cursor()
     cursor.execute("SELECT * FROM utilisateur WHERE id = %s", (user_id,))
     user = cursor.fetchone()
@@ -182,13 +152,13 @@ def update_profile(user_id):
     new_address = request.json.get('new_adresse')
     new_email = request.json.get('new_email');
 
-    # Vérifier si l'utilisateur existe dans la base de données
+    # Vérifier l'existence de l'utilisateur dans la BD
     cursor = mysql.cursor()
     cursor.execute("SELECT * FROM utilisateur WHERE id = %s", (user_id,))
     user = cursor.fetchone()
 
     if user:
-        # Mettre à jour les informations du profil utilisateur avec les nouvelles données
+        # Mise à jour es informations du profil utilisateur 
         update_query = "UPDATE utilisateur SET nom_utilisateur = %s, telephone = %s, adresse = %s, email= %s WHERE id = %s"
         cursor.execute(update_query, (new_username, new_phone, new_address, new_email, user_id))
         mysql.commit()
@@ -197,20 +167,18 @@ def update_profile(user_id):
     else:
         return jsonify({'message': 'Utilisateur non trouvé'}), 404
     
-#Modifier mot de passe
+#modifier mot de passe
 @app.route('/api/profile/update_password/<int:user_id>', methods=['POST'])
 def update_password(user_id):
     # Récupérer les données de la requête
     old_password = request.json.get('old_password')
     new_password = request.json.get('new_password')
-
-    # Vérifier si l'utilisateur existe dans la base de données
+    #Vérifier l'existence de l'utilisateur dans la BD
     cursor = mysql.cursor()
     cursor.execute("SELECT * FROM utilisateur WHERE id = %s AND mot_de_passe = %s", (user_id, old_password))
     user = cursor.fetchone()
-
     if user:
-        # Mettre à jour le mot de passe de l'utilisateur avec le nouveau mot de passe
+        #Màj de l'utilisateur
         update_query = "UPDATE utilisateur SET mot_de_passe = %s WHERE id = %s"
         cursor.execute(update_query, (new_password, user_id))
         mysql.commit()
@@ -223,7 +191,7 @@ def update_password(user_id):
 @app.route('/api/admin/add_seller', methods=['POST'])
 def add_seller():
    
-    # Récupérer les données du nouveau vendeur à partir de la requête
+    # Récupération des données du nouveau vendeur 
     username = request.form.get('username')
     email = request.form.get('email')
     password = request.form.get('password')
@@ -248,20 +216,20 @@ def add_seller():
 @app.route('/api/admin/update_seller/<int:seller_id>', methods=['POST'])
 def update_seller(seller_id):
     
-    # Récupérer les nouvelles données du vendeur à partir de la requête
+    # Récupération des nouvelles données du vendeur 
     new_username = request.json.get('username')
     new_email = request.json.get('email')
     new_password = request.json.get('password')
     new_telephone = request.json.get('telephone')
     new_address = request.json.get('adresse')
 
-    # Vérifier si le vendeur avec cet ID existe dans la base de données
+    # Vérifier l'existence du vendeur dans la BD
     cursor = mysql.cursor()
     cursor.execute("SELECT * FROM utilisateur WHERE id = %s", (seller_id,))
     seller = cursor.fetchone()
 
     if seller:
-        # Mettre à jour les informations du vendeur avec les nouvelles données
+        # Màj des informations du vendeur 
         update_query = "UPDATE utilisateur SET nom_utilisateur = %s, email = %s, mot_de_passe = %s, telephone = %s, adresse = %s WHERE id = %s"
         cursor.execute(update_query, (new_username, new_email, new_password, new_telephone, new_address, seller_id))
         mysql.commit()
@@ -274,13 +242,13 @@ def update_seller(seller_id):
 #suppression d'un vendeur (admin)
 @app.route('/api/admin/delete_seller/<int:seller_id>', methods=['DELETE'])
 def delete_seller(seller_id):
-    # Vérifier si le vendeur avec cet ID existe dans la base de données
+    # Vérifier l'existence de l'utilisateur dans la BD
     cursor = mysql.cursor()
     cursor.execute("SELECT * FROM utilisateur WHERE id = %s", (seller_id,))
     seller = cursor.fetchone()
 
     if seller:
-        # Supprimer le vendeur de la base de données
+        # Supprimer le vendeur de la BD
         delete_query = "DELETE FROM utilisateur WHERE id = %s"
         cursor.execute(delete_query, (seller_id,))
         mysql.commit()
@@ -294,15 +262,14 @@ def delete_seller(seller_id):
 #liste des vendeurs (admin)
 @app.route('/api/sellers', methods=['GET'])
 def get_sellers():
-    # Récupérer tous les vendeurs de la base de données
+    # Récupérer tous les vendeurs de la BD
     cursor = mysql.cursor()
     cursor.execute("SELECT * FROM utilisateur WHERE role = 'vendeur'")
     sellers = cursor.fetchall()
     cursor.close()
 
-    # Vérifier si des vendeurs ont été trouvés
+    # Vérification de l'existence de vendeurs
     if sellers:
-        # Convertir les résultats en un format JSON
         sellers_json = []
         for seller in sellers:
             seller_data = {
@@ -314,23 +281,14 @@ def get_sellers():
                 'photo': seller[6] 
             }
             sellers_json.append(seller_data)
-
-        # Retourner les vendeurs récupérés en tant que réponse de l'API
         return jsonify({'sellers': sellers_json})
     else:
-        # Retourner un message indiquant qu'aucun vendeur n'a été trouvé
         return jsonify({'message': 'Aucun vendeur trouvé'}), 404
-
-# api modifiée
-#vendeur par id
 #user par id
 @app.route('/api/userById/<int:user_id>', methods=['GET'])
 def get_user(user_id):
-    # Récupérer les données de la requête
-    
-    # print(seller_id)
-    # Vérifier si l'utilisateur existe dans la base de données
-    #cursor = mysql.connection.cursor()
+   
+     # Récupérer des données 
     cursor = mysql.cursor()
     cursor.execute("SELECT * FROM utilisateur WHERE id = %s", (user_id,))
     user = cursor.fetchone()
@@ -340,15 +298,10 @@ def get_user(user_id):
         return jsonify(user)
     else:
         return jsonify({'message': 'utilisateur non trouvé'}), 404
-
-
 #ajout d'un article (vendeur)
-
 @app.route('/api/seller/add_product', methods=['POST'])
 def add_product():
-
-    # Récupérer les données du nouveau produit à partir de la requête
-
+    #Récupération des données du nouveau produit
     libelle = request.form.get('libelle')
     category_id = request.form.get('categoryId')
     prix = request.form.get('prix')
@@ -374,14 +327,13 @@ def add_product():
 #liste des articles par catégorie (client)
 @app.route('/api/category/<int:category_id>/articles', methods=['GET'])
 def get_products_by_category(category_id):
-    # Récupérer tous les articles de la catégorie spécifiée
+    # Récupération de tous les articles ayant une catégorie spécifique
     cursor = mysql.cursor()
     cursor.execute('SELECT * FROM `article` WHERE categoryId = %s', (category_id,))
     products = cursor.fetchall()
     cursor.close()
    # Vérifier si des articles ont été trouvés
     if products:
-        # Convertir les résultats en un format JSON
         products_json = []
         for product in products:
             product_data = {
@@ -389,22 +341,21 @@ def get_products_by_category(category_id):
                 'libelle': product[1],
                 'categoryId': product[2],
                 'prix': product[3],
-                'photo': product[4],  # Supposons que la colonne photo contient l'image en bytes
+                'photo': product[4],  
                 'description': product[5],
                 'vendeurId': product[6]
             }
             products_json.append(product_data)
 
-        # Retourner les articles récupérés en tant que réponse de l'API
         return jsonify({'articles': products_json})
     else:
-        # Retourner un message indiquant qu'aucun article n'a été trouvé
+        #Message en cas d'erreur
         return jsonify({'message': 'Aucun article trouvé'}), 404
 
 #liste des articles (client)
 @app.route("/api/articles", methods=['GET'])
 def get_all_products():
-    # Récupérer tous les articles de la base de données
+    # Récupération de tous les articles de la BD
     cursor = mysql.cursor()
     cursor.execute("SELECT * FROM article")
     products = cursor.fetchall()
@@ -412,7 +363,6 @@ def get_all_products():
 
     # Vérifier si des articles ont été trouvés
     if products:
-        # Convertir les résultats en un format JSON
         products_json = []
         for product in products:
             product_data = {
@@ -420,31 +370,27 @@ def get_all_products():
                 'libelle': product[1],
                 'categoryId': product[2],
                 'prix': product[3],
-                'photo': product[4],  # Supposons que la colonne photo contient l'image en bytes
+                'photo': product[4],  
                 'description': product[5],
                 'vendeurId': product[6]
             }
             products_json.append(product_data)
-
-        # Retourner les articles récupérés en tant que réponse de l'API
         return jsonify({'articles': products_json})
     else:
-        # Retourner un message indiquant qu'aucun article n'a été trouvé
         return jsonify({'message': 'Aucun article trouvé'}), 404
 
-#liste des articles (relatif à vendeur)
+#liste des articles (relatifs aux vendeur)
 
 @app.route('/api/seller/<int:seller_id>/articles', methods=['GET'])
 def get_seller_articles(seller_id):
-    # Récupérer tous les articles du vendeur spécifié par son ID
+    # Récupération de tous les articles du vendeur
     cursor = mysql.cursor()
     cursor.execute("SELECT * FROM article WHERE vendeurId = %s", (seller_id,))
     articles = cursor.fetchall()
     cursor.close()
 
-    # Vérifier si des articles ont été trouvés pour ce vendeur
+    # Vérification de l'existence des articles du vendeur
     if articles:
-        # Convertir les résultats en un format JSON
         articles_json = []
         for article in articles:
             article_data = {
@@ -452,33 +398,30 @@ def get_seller_articles(seller_id):
                 'libelle': article[1],
                 'categoryId': article[2],
                 'prix': article[3],
-                'photo': article[4],  # Supposons que la colonne photo contient l'image en bytes
+                'photo': article[4], 
                 'description': article[5],
                 'vendeurId': article[6]
             }
             articles_json.append(article_data)
 
-        # Retourner les articles récupérés en tant que réponse de l'API
         return jsonify({'articles': articles_json})
     else:
-        # Retourner un message indiquant qu'aucun article n'a été trouvé pour ce vendeur
         return jsonify({'message': 'Aucun article trouvé pour ce vendeur'}), 404
 
 #modification d'un article (vendeur)
 @app.route('/api/seller/update_product/<int:article_id>', methods=['PUT'])
 def update_product(article_id):
-    # Récupérer les nouvelles données de l'article à partir de la requête
+    # Récupération des nouvelles données de l'article 
     new_data = request.json
     new_libelle = new_data.get('libelle')
     new_category_id = new_data.get('categoryId')
     new_prix = new_data.get('prix')
     new_description = new_data.get('description')
 
-    # Mettre à jour l'article spécifié dans la base de données
+    # Màj de l'article spécifié 
     cursor = mysql.cursor()
     update_query = "UPDATE article SET libelle = %s, categoryId = %s, prix = %s, description = %s WHERE id = %s"
     cursor.execute(update_query, (new_libelle, new_category_id, new_prix, new_description, article_id))
-    #mysql.connection.commit()
     mysql.commit()
     cursor.close()
 
@@ -487,7 +430,7 @@ def update_product(article_id):
 #supprimer un article (vendeur)
 @app.route('/api/seller/delete_product/<int:article_id>', methods=['DELETE'])
 def delete_product(article_id):
-    # Supprimer l'article spécifié dans la base de données
+    # Supprimer l'article spécifié avec son id
     cursor = mysql.cursor()
     delete_query = "DELETE FROM article WHERE id = %s"
     cursor.execute(delete_query, (article_id,))
@@ -497,13 +440,10 @@ def delete_product(article_id):
     return jsonify({'message': 'Article supprimé avec succès'})
 
 #article par id
-
 @app.route('/api/info_article/<int:article_id>', methods=['GET'])
 def get_article(article_id):
-    # Récupérer les données de la requête
-    
-    # print(article_id)
-    # Vérifier si l'article existe dans la base de données
+    # Récupération des données à partir de la requête
+    # Vérifier de l'existence de l'article
     cursor = mysql.cursor()
     cursor.execute("SELECT * FROM article WHERE id = %s", (article_id,))
     product = cursor.fetchone()
@@ -546,14 +486,14 @@ def get_article_rating(article_id):
 #passer une commande (client)
 @app.route('/api/addOrder', methods=['POST'])
 def save_order():
-    # Récupérer les données de la commande à partir de la requête
+    # Récupération des  données de la commande 
     order_data = request.json
     date = order_data.get('date')
     montant = order_data.get('montant')
     adresse_livraison = order_data.get('adresse_livraison')
     client_id = order_data.get('clientId')
 
-    # Insérer les informations de la commande dans la base de données
+    # Insértion des infos de la commande dans la BD
     cursor = mysql.cursor()
     insert_query = "INSERT INTO commande (date, montant, adresse_livraison, clientId) VALUES (%s, %s, %s, %s)"
     cursor.execute(insert_query, (date, montant, adresse_livraison, client_id))
@@ -564,23 +504,21 @@ def save_order():
 
 @app.route('/api/logout', methods=['GET'])
 def logout():
-    # Vérifier si l'utilisateur est connecté en vérifiant la présence du jeton JWT dans les cookies
+    # Vérification si l'utilisateur est connecté en vérifiant la présence du token JWT 
     if 'jwt_token' in request.cookies:
-        # Supprimer le jeton JWT en réglant sa durée de vie à zéro
+        # suppression du jeton jwt
         response = make_response(jsonify({'message': 'Déconnexion réussie'}))
         response.set_cookie('jwt_token', '', max_age=0)
-        # Effacer toutes les données de session Flask
+        # Effacer toutes les données de la session 
         session.clear()
         return response
     else:
-        # Si l'utilisateur n'est pas connecté, renvoyer un message d'erreur
+        # Msg d'erreur en cas d'inexistence du token
         return jsonify({'error': 'Utilisateur non connecté'}), 401
 
 #modification image article
 @app.route('/api/seller/update_product_photo/<int:article_id>', methods=['PUT'])
 def update_product_photo(article_id):
-    
-    
     files = request.files.getlist('files[]')
     
     cursor = mysql.cursor()

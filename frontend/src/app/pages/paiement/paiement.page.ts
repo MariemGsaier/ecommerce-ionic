@@ -11,7 +11,6 @@ import { UtilisateurService } from 'src/app/services/utilisateur.service';
   styleUrls: ['./paiement.page.scss'],
 })
 export class PaiementPage implements OnInit {
-  //declaration des var globales
   selectedPaymentMethod: string = 'cash';
   changeDeliveryAddress: boolean = false;
   clientId!: number;
@@ -35,9 +34,8 @@ export class PaiementPage implements OnInit {
   ngOnInit() {
     const userId = localStorage.getItem('userId');
     console.log(userId);
-    // Vérifier si l'ID existe
     if (userId) {
-      // Convertir l'ID en nombre (car localStorage stocke les valeurs en chaînes de caractères)
+      // Convertir l'ID en nombre
       this.clientId = +userId;
     }
 
@@ -60,14 +58,12 @@ export class PaiementPage implements OnInit {
   }
 
   passerCommande() {
-    // Vérifier si tous les champs sont remplis
     if (this.selectedPaymentMethod == 'carteBancaire') {
       if (
         !this.commande.num_carte ||
         !this.commande.date_expiration ||
         !this.commande.code_secret
       ) {
-        // Afficher un message d'erreur à l'utilisateur
         this.snackBar.open(
           'Veuillez remplir tous les champs du formulaire.',
           'Fermer',
@@ -79,7 +75,6 @@ export class PaiementPage implements OnInit {
         return;
       }
     }
-    // Vérifier si l'adresse de livraison est remplie si l'utilisateur souhaite la changer
     if (this.changeDeliveryAddress && !this.commande.adresse_livraison) {
       this.snackBar.open(
         'Veuillez remplir tous les champs du formulaire.',
@@ -92,7 +87,6 @@ export class PaiementPage implements OnInit {
       return;
     }
 
-    //Créer un objet avec les données du formulaire
     const commandeData = {
       montant: this.commande.montant,
       adresse_livraison: this.commande.adresse_livraison,
@@ -100,12 +94,9 @@ export class PaiementPage implements OnInit {
       clientId: this.clientId,
     };
 
-    // Appel de la méthode du service
     this.commandeService.passerCommande(commandeData).subscribe(
       (response) => {
-        // Gérer la réponse de l'API (succès)
         console.log(response);
-        // Vider le panier après la commande réussie
         this.panierService.viderPanier();
 
         this.snackBar.open('Commande passée avec succés', 'Fermer', {
@@ -113,11 +104,9 @@ export class PaiementPage implements OnInit {
           panelClass: ['success-snackbar'],
         });
 
-        // Redirection vers accueil
         this.router.navigate(['/home']);
       },
       (error) => {
-        // Gestion de l'erreur en cas d'échec
         console.error(error);
         this.snackBar.open(
           "Erreur lors de l'ajout de l'article. Veuillez réessayer.",

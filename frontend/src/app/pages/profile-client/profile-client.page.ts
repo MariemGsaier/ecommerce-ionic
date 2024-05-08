@@ -24,9 +24,9 @@ export class ProfileClientPage implements OnInit {
   ngOnInit() {
     const userId = localStorage.getItem('userId');
     console.log(userId);
-    // Vérifier si l'ID existe
+    // Vérifier si l'id existe
     if (userId) {
-      // Convertir l'ID en nombre (car localStorage stocke les valeurs en chaînes de caractères)
+      // Convertir l'ID en nombre
       this.userIdNumber = +userId;
     }
     this.utilisateurService.getProfileById(this.userIdNumber).subscribe(
@@ -43,10 +43,9 @@ export class ProfileClientPage implements OnInit {
     );
   }
   toUpdateProfil(id: number) {
-    // Appeler la méthode getProfile pour obtenir les informations complètes de l'utilisateur
     this.utilisateurService.getProfileById(id).subscribe((profileResponse) => {
       console.log(profileResponse);
-      // Récupérer le rôle de l'utilisateur depuis la réponse de getProfile
+      // Récupérer le rôle de l'utilisateur
       const role = profileResponse[7];
       console.log(role);
       // Rediriger l'utilisateur en fonction de son rôle
@@ -64,10 +63,9 @@ export class ProfileClientPage implements OnInit {
     });
   }
   toUpdatePwd(id: number) {
-    // Appeler la méthode getProfile pour obtenir les informations complètes de l'utilisateur
     this.utilisateurService.getProfileById(id).subscribe((profileResponse) => {
       console.log(profileResponse);
-      // Récupérer le rôle de l'utilisateur depuis la réponse de getProfile
+      // Récupérer le rôle de l'utilisateur
       const role = profileResponse[7];
       console.log(role);
       // Rediriger l'utilisateur en fonction de son rôle
@@ -85,7 +83,6 @@ export class ProfileClientPage implements OnInit {
     });
   }
 
-  // Fonction pour confirmer la suppression d'un vendeur
   async confirmlogout() {
     const alert = await this.alertController.create({
       header: 'Confirmation',
@@ -113,7 +110,7 @@ export class ProfileClientPage implements OnInit {
   logout(): void {
     // Supprimer le jeton du localStorage
     localStorage.removeItem('token');
-    // Supprimer l'ID de l'utilisateur du localStorage
+    // Supprimer l'id de l'utilisateur du localStorage
     localStorage.removeItem('userId');
     this.panierService.viderPanier();
     // Rediriger l'utilisateur vers la page de connexion

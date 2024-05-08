@@ -9,11 +9,10 @@ import { ArticleService } from 'src/app/services/article.service';
   styleUrls: ['./evaluate-article.page.scss'],
 })
 export class EvaluateArticlePage implements OnInit {
-
   articleId!: number;
-  article: any = {}; 
+  article: any = {};
 
-    //rating 
+  //rating
   star1 = 'star-outline';
   star2 = 'star-outline';
   star3 = 'star-outline';
@@ -25,21 +24,22 @@ export class EvaluateArticlePage implements OnInit {
     private route: ActivatedRoute,
     private articleService: ArticleService,
     private snackBar: MatSnackBar,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    // Récupérer l'ID de l'article à partir des paramètres de l'URL
     this.articleId = this.route.snapshot.params['id'];
-    console.log(this.articleId)
-    // Appeler la méthode du service pour récupérer les données de l'article
+    console.log(this.articleId);
     this.articleService.getArticle(this.articleId).subscribe(
       (response) => {
-        this.article = response; 
-        console.log(this.article)
+        this.article = response;
+        console.log(this.article);
       },
       (error) => {
-        console.error('Erreur lors de la récupération des données de l\'article : ', error);
+        console.error(
+          "Erreur lors de la récupération des données de l'article : ",
+          error
+        );
       }
     );
   }
@@ -62,27 +62,26 @@ export class EvaluateArticlePage implements OnInit {
       (response) => {
         this.snackBar.open('Évaluation réussie', 'Fermer', {
           duration: 3000,
-          panelClass: ['success-snackbar']
+          panelClass: ['success-snackbar'],
         });
-          setTimeout(() => {
+        setTimeout(() => {
           this.router.navigate(['/tabs/home']);
-        }, 100); // Attendre 100 millisecondes avant de rediriger
-  
-        // Recharger la page après la redirection
+        }, 100);
+
         setTimeout(() => {
           window.location.reload();
         }, 200);
       },
       (error) => {
-        this.snackBar.open('Erreur lors de l\'évaluation. Veuillez réessayer.', 'Fermer', {
-          duration: 3000,
-          panelClass: ['error-snackbar']
-        });
+        this.snackBar.open(
+          "Erreur lors de l'évaluation. Veuillez réessayer.",
+          'Fermer',
+          {
+            duration: 3000,
+            panelClass: ['error-snackbar'],
+          }
+        );
       }
     );
   }
 }
-
-
-
-

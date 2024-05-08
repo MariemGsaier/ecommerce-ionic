@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ArticleService } from 'src/app/services/article.service';
 import { Platform } from '@ionic/angular';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { Capacitor } from '@capacitor/core'; // Ajoutez cette ligne pour importer Capacitor
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-ajout-article',
@@ -26,16 +26,16 @@ export class AjoutArticlePage implements OnInit {
   ngOnInit() {
     const userId = localStorage.getItem('userId');
     console.log(userId);
-    // Vérifier si l'ID existe
+    // Vérifier si l'id user existe
     if (userId) {
-      // Convertir l'ID en nombre (car localStorage stocke les valeurs en chaînes de caractères)
+      // Conversion de id en nombre
       this.userIdNumber = userId;
     }
   }
 
   selectedFile: File | null = null;
 
-  // Fonction appelée lorsque l'utilisateur sélectionne un fichier
+  //selection du fichier
   onFileSelected(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0) {
@@ -52,8 +52,6 @@ export class AjoutArticlePage implements OnInit {
       source: CameraSource.Prompt,
       saveToGallery: true,
     });
-
-    // Si l'utilisateur utilise Capacitor pour prendre la photo, convertissez l'image Base64 en fichier
     if (Capacitor.getPlatform() === 'web') {
       if (image.base64String) {
         this.convertBase64ToFile(image.base64String);
@@ -63,8 +61,6 @@ export class AjoutArticlePage implements OnInit {
       console.log(this.imageSource);
     }
   };
-
-  // Fonction pour convertir l'image Base64 en fichier
   convertBase64ToFile(base64String: string) {
     const byteCharacters = atob(base64String);
     const byteNumbers = new Array(byteCharacters.length);
@@ -73,17 +69,12 @@ export class AjoutArticlePage implements OnInit {
     }
     const byteArray = new Uint8Array(byteNumbers);
     const blob = new Blob([byteArray], { type: 'image/jpeg' });
-
-    // Créez un nouveau fichier à partir du blob
     const file = new File([blob], 'photo.jpg', { type: 'image/jpeg' });
-
-    // Enregistrez le fichier dans la variable selectedFile
     this.selectedFile = file;
     console.log('Fichier sélectionné :', this.selectedFile);
   }
-
   ajouter_article() {
-    // Récupérer les valeurs des champs du formulaire
+    // Récupération  des champs du formulaire
     const categorie = document.getElementById('categorie');
     const categorieValue = (categorie as HTMLIonSelectElement).value;
     const libelle = (document.getElementById('libelle') as HTMLInputElement)
@@ -92,8 +83,7 @@ export class AjoutArticlePage implements OnInit {
     const description = (
       document.getElementById('description') as HTMLInputElement
     ).value;
-    // console.log(categorieValue)
-    // Vérifier si tous les champs sont remplis
+    // Vérification si tous les champs sont remplis
     if (
       !categorieValue ||
       !libelle ||
@@ -101,7 +91,7 @@ export class AjoutArticlePage implements OnInit {
       !this.selectedFile ||
       !description
     ) {
-      // Afficher un message d'erreur à l'utilisateur
+      // Afficher un message d'erreur
       this.snackBar.open(
         'Veuillez remplir tous les champs du formulaire.',
         'Fermer',
@@ -110,7 +100,7 @@ export class AjoutArticlePage implements OnInit {
           panelClass: ['error-snackbar'],
         }
       );
-      return; // Arrêter l'exécution de la méthode
+      return;
     }
 
     const articleData = new FormData();
@@ -123,20 +113,18 @@ export class AjoutArticlePage implements OnInit {
 
     console.log(articleData);
 
-    // Appeler la méthode addProduct du service article
+    //addProduct du service article
     this.articleService.addProduct(articleData).subscribe(
       (response) => {
-        // Gérer la réponse de l'API (succès)
         console.log(response);
-
         this.snackBar.open('Article ajouté avec succès', 'Fermer', {
-          duration: 3000, // Durée du snackbar en millisecondes
+          duration: 3000,
           panelClass: ['success-snackbar'],
         });
-        // Rediriger l'utilisateur vers une autre page (par exemple, la page de liste des articles)
+        // Rediriger l'utilisateur vers une autre page
         setTimeout(() => {
           this.router.navigate(['/tabs-vendeur/list-article-vendeur']);
-        }, 100); // Attendre 100 millisecondes avant de rediriger
+        }, 100);
 
         // Recharger la page après la redirection
         setTimeout(() => {
@@ -144,9 +132,8 @@ export class AjoutArticlePage implements OnInit {
         }, 200);
       },
       (error) => {
-        // Gérer l'erreur
         console.error(error);
-        // Afficher un message d'erreur à l'utilisateur
+
         this.snackBar.open(
           "Erreur lors de l'ajout de l'article. Veuillez réessayer.",
           'Fermer',
